@@ -18,12 +18,12 @@ export async function generateInsightAnswer(question: string): Promise<string> {
     const expenses = await db.record.findMany({
       where: {
         userId: user.clerkUserId,
-        date: {
+        createdAt: {
           gte: thirtyDaysAgo,
         },
       },
       orderBy: {
-        date: 'desc',
+        createdAt: 'desc',
       },
       take: 50, // Limit to recent 50 expenses for analysis
     });
@@ -34,7 +34,7 @@ export async function generateInsightAnswer(question: string): Promise<string> {
       amount: expense.amount,
       category: expense.category || 'Other',
       description: expense.text,
-      date: expense.date.toISOString(),
+      date: expense.createdAt.toISOString(),
     }));
 
     // Generate AI answer
