@@ -20,9 +20,17 @@ async function getRecords(): Promise<{
         date: 'desc', // Sort by the `date` field in descending order
       },
       take: 10, // Limit the request to 10 records
+      select: {
+        id: true,
+        text: true,
+        amount: true,
+        category: true,
+        date: true,
+        userId: true,
+      },
     });
 
-    return {records};
+    return { records };
   } catch (error) {
     console.error('Error fetching records:', error); // Log the error
     return { error: 'Database error' };
